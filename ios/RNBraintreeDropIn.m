@@ -13,22 +13,15 @@ RCT_EXPORT_MODULE(RNBraintreeDropIn)
 RCT_EXPORT_METHOD(show:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
 
-    if([options[@"darkTheme"] boolValue]){
-        if (@available(iOS 13.0, *)) {
-            BTUIKAppearance.sharedInstance.colorScheme = BTUIKColorSchemeDynamic;
-        } else {
-            BTUIKAppearance.sharedInstance.colorScheme = BTUIKColorSchemeDark;
-        }
+if([options[@"darkTheme"] boolValue]){
+    if (@available(iOS 13.0, *)) {
+        BTUIKAppearance.sharedInstance.colorScheme = BTUIKColorSchemeDynamic;
     } else {
+        BTUIKAppearance.sharedInstance.colorScheme = BTUIKColorSchemeDark;
+    }
+} else {
         BTUIKAppearance.sharedInstance.colorScheme = BTUIKColorSchemeLight;
-    }
-
-    if(options[@"fontFamily"]){
-        [BTUIKAppearance sharedInstance].fontFamily = options[@"fontFamily"];
-    }
-    if(options[@"boldFontFamily"]){
-        [BTUIKAppearance sharedInstance].boldFontFamily = options[@"boldFontFamily"];
-    }
+}
 
     self.resolve = resolve;
     self.reject = reject;
@@ -52,8 +45,7 @@ RCT_EXPORT_METHOD(show:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)r
 
         request.threeDSecureVerification = YES;
         BTThreeDSecureRequest *threeDSecureRequest = [[BTThreeDSecureRequest alloc] init];
-        threeDSecureRequest.amount = [NSDecimalNumber decimalNumberWithString:threeDSecureAmount.stringValue];
-        
+        threeDSecureRequest.amount = threeDSecureAmount;
     }
 
     BTAPIClient *apiClient = [[BTAPIClient alloc] initWithAuthorization:clientToken];
@@ -65,6 +57,12 @@ RCT_EXPORT_METHOD(show:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)r
 
     if([options[@"vaultManager"] boolValue]){
         request.vaultManager = YES;
+    }
+
+    if([options[@"paypal"] boolValue]){
+        request.paypalDisabled = options[@"paypal"];
+    } else {
+        request.paypalDisabled = YES;
     }
 
     if([options[@"applePay"] boolValue]){
