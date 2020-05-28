@@ -1,3 +1,9 @@
+#if __has_include("BraintreePayPal.h")
+#import "BraintreePayPal.h"
+#else
+#import <BraintreePayPal/BraintreePayPal.h>
+#endif
+
 #import "RNBraintreeDropIn.h"
 #import <React/RCTUtils.h>
 #import "BTThreeDSecureRequest.h"
