@@ -66,11 +66,11 @@ if([options[@"darkTheme"] boolValue]){
     }
     
     if ([options[@"paypal"] boolValue]) {
-        request.applePayDisabled = NO;
+        request.paypalDisabled = NO;
         request.payPalRequest = [[BTPayPalRequest alloc] initWithAmount:[options[@"orderTotal"] stringValue]];
         request.payPalRequest.currencyCode = options[@"currencyCode"];
     } else {
-        request.applePayDisabled = YES;
+        request.paypalDisabled = YES;
     }
 
     if([options[@"applePay"] boolValue]){
