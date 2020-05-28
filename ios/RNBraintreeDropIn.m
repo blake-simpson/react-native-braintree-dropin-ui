@@ -73,12 +73,6 @@ if([options[@"darkTheme"] boolValue]){
         request.applePayDisabled = YES;
     }
 
-    if([options[@"paypal"] boolValue]){
-        request.paypalDisabled = options[@"paypal"];
-    } else {
-        request.paypalDisabled = YES;
-    }
-
     if([options[@"applePay"] boolValue]){
         NSString* merchantIdentifier = options[@"merchantIdentifier"];
         NSString* countryCode = options[@"countryCode"];
