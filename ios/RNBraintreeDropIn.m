@@ -66,6 +66,14 @@ RCT_EXPORT_METHOD(show:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)r
     if([options[@"vaultManager"] boolValue]){
         request.vaultManager = YES;
     }
+    
+    if ([options[@"paypal"] boolValue]) {
+        request.applePayDisabled = NO;
+        request.payPalRequest = [[BTPayPalRequest alloc] initWithAmount:[options[@"orderTotal"] stringValue]];
+        request.payPalRequest.currencyCode = options[@"currencyCode"];
+    } else {
+        request.applePayDisabled = YES;
+    }
 
     if([options[@"applePay"] boolValue]){
         NSString* merchantIdentifier = options[@"merchantIdentifier"];
