@@ -1,3 +1,9 @@
+#if __has_include("BraintreePayPal.h")
+#import "BraintreePayPal.h"
+#else
+#import <BraintreePayPal/BraintreePayPal.h>
+#endif
+
 #import "RNBraintreeDropIn.h"
 #import <React/RCTUtils.h>
 #import "BTThreeDSecureRequest.h"
@@ -58,9 +64,11 @@ if([options[@"darkTheme"] boolValue]){
     if([options[@"vaultManager"] boolValue]){
         request.vaultManager = YES;
     }
-
-    if([options[@"paypal"] boolValue]){
-        request.paypalDisabled = options[@"paypal"];
+    
+    if ([options[@"paypal"] boolValue]) {
+        request.paypalDisabled = NO;
+        request.payPalRequest = [[BTPayPalRequest alloc] initWithAmount:[options[@"orderTotal"] stringValue]];
+        request.payPalRequest.currencyCode = options[@"currencyCode"];
     } else {
         request.paypalDisabled = YES;
     }
