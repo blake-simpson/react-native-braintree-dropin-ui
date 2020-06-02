@@ -52,6 +52,7 @@ if([options[@"darkTheme"] boolValue]){
         request.threeDSecureVerification = YES;
         BTThreeDSecureRequest *threeDSecureRequest = [[BTThreeDSecureRequest alloc] init];
         threeDSecureRequest.amount = [NSDecimalNumber decimalNumberWithString:threeDSecureAmount.stringValue];
+        request.threeDSecureRequest = threeDSecureRequest;
     }
 
     BTAPIClient *apiClient = [[BTAPIClient alloc] initWithAuthorization:clientToken];
